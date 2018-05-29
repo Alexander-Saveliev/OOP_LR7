@@ -6,10 +6,16 @@
 //  Copyright © 2018 Marty. All rights reserved.
 //
 
-func findMaxOfArray<T>(_ arr: [T], by: (T, T) throws -> Bool) -> T? {
-    do {
-        return try arr.max(by: by) ?? nil
-    } catch {
+func findMaxOfArray<T>(_ arr: [T], by: (T, T) -> Bool) -> T? {
+    if arr.isEmpty {
         return nil
     }
+    
+    var max = arr[0]
+    
+    for element in arr where by(max, element) {
+        max = element
+    }
+    
+    return max
 }
